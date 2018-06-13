@@ -2,7 +2,7 @@
     "name": "9peak/laravel-responser",
     "description": "Response output component for Controller & Middleware in Laravel & Lumen.",
     "license": "MIT",
-    "keywords": [],
+    "keywords": ["soffee design"],
     "authors": [
         {
             "name": "Kane Young / 杨祥凯",
@@ -12,8 +12,6 @@
     "require": {
         "php": ">= 5.4"
     },
-    "minimum-stability": "dev",
-    "prefer-stable": true,
     "require-dev": {},
     "autoload": {
         "psr-4": {
