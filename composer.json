@@ -1,0 +1,21 @@
+{
+    "name": "9peak/laravel-responser",
+    "description": "Response output component for Controller & Middleware in Laravel & Lumen.",
+    "license": "MIT",
+    "keywords": [],
+    "authors": [
+        {
+            "name": "Kane Young / 杨祥凯",
+            "email": "52653784@qq.com"
+        }
+    ],
+    "require": {
+        "php": ">= 5.4"
+    },
+    "require-dev": {},
+    "autoload": {
+        "psr-4": {
+            "Peak\\": "src"
+        }
+    }
+}
