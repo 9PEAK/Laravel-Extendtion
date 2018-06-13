@@ -6,7 +6,7 @@ namespace Peak\Laravel\Http;
  * Provide response generating functions
  * typically used in various situtaions
  */
-trait ResponserComponent {
+trait ResponserBase {
 
 	/**
      * Render a HTML response

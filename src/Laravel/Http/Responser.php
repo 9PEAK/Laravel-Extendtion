@@ -9,7 +9,7 @@ namespace Peak\Laravel\Http;
 class Responser {
 
 
-	use ResponserComponent;
+	use ResponserBase;
 
 
 }
