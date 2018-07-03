@@ -33,9 +33,9 @@ trait Translater {
 
 		if ( $prop ) {
 			$prop = is_array($prop) ? $prop : explode(',', $prop);
-			$prop = array_intersect($prop, self::${static::$MODEL_TRANSLATE});
+			$prop = array_intersect($prop, $this->${static::$MODEL_TRANSLATE});
 		} else {
-			$prop = self::${static::$MODEL_TRANSLATE};
+			$prop = $this->${static::$MODEL_TRANSLATE};
 		}
 
 		if ($prop) {
