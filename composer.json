@@ -1,5 +1,5 @@
 {
-    "name": "9peak/laravel-responser",
+    "name": "9peak/laravel-component",
     "description": "Response output component for Controller & Middleware in Laravel & Lumen.",
     "license": "MIT",
     "keywords": ["soffee design"],
