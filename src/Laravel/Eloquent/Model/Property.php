@@ -18,7 +18,7 @@ trait Property {
 	 * */
 	private static function model_class_name ()
 	{
-		$arr = explode('\\', __CLASS__);
+		$arr = explode('\\', static::class);
 		return $arr[count($arr)-1];
 	}
 
