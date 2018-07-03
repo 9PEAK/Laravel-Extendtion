@@ -50,11 +50,11 @@ trait Property {
 	{
 
 		if ($key&&isset($val)) {
-			return array_search(config(join('.', self::listProperty($key))), $val);
+			return array_search(self::listProperty($key), $val);
 		}
 
 		if ($key) {
-			return config(join('.', self::listProperty($key.'.'.$this->$$key)) );
+			return self::listProperty($key.'.'.$this->$key);
 		}
 
 	}

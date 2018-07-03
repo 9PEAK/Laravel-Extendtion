@@ -16,7 +16,7 @@ trait Translater {
 	 * */
 	private static function get_model_translate_property()
 	{
-		return property_exists(__CLASS__, self::$MODEL_TRANSLATE);
+		return property_exists(__CLASS__, static::$MODEL_TRANSLATE);
 	}
 
 	/**
@@ -27,15 +27,15 @@ trait Translater {
 	 * @ext 转化属性名后缀，默认为''
 	 * @return 成功true；如果Model未指定translate属性名，则返回false。
 	 * */
-	public function tranlateProperty($prop=null, $prf='_', $ext=''):bool
+	public function translateProperty($prop=null, $prf='_', $ext=''):bool
 	{
 		if ( !self::get_model_translate_property()) return false;
 
 		if ( $prop ) {
 			$prop = is_array($prop) ? $prop : explode(',', $prop);
-			$prop = array_intersect($prop, static::$$MODEL_TRANSLATE);
+			$prop = array_intersect($prop, self::${static::$MODEL_TRANSLATE});
 		} else {
-			$prop = static::$$MODEL_TRANSLATE;
+			$prop = self::${static::$MODEL_TRANSLATE};
 		}
 
 		if ($prop) {
