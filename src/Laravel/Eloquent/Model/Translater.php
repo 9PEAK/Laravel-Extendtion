@@ -9,14 +9,14 @@ trait Translater {
 	/**
 	 * 模型转化翻译的属性名
 	 * */
-	protected static $MODEL_TRANSLATE = 'translate';
+	protected static $model_translation = 'translation';
 
 	/**
 	 * 检测model
 	 * */
-	private static function get_model_translate_property()
+	private static function translation_defined():bool
 	{
-		return property_exists(__CLASS__, static::$MODEL_TRANSLATE);
+		return property_exists(__CLASS__, static::$model_translation);
 	}
 
 	/**
@@ -29,13 +29,13 @@ trait Translater {
 	 * */
 	public function translateProperty($prop=null, $prf='_', $ext=''):bool
 	{
-		if ( !self::get_model_translate_property()) return false;
+		if ( !self::translation_defined()) return false;
 
 		if ( $prop ) {
 			$prop = is_array($prop) ? $prop : explode(',', $prop);
-			$prop = array_intersect($prop, $this->${static::$MODEL_TRANSLATE});
+			$prop = array_intersect($prop, $this->${static::$model_translation});
 		} else {
-			$prop = $this->${static::$MODEL_TRANSLATE};
+			$prop = $this->${static::$model_translation};
 		}
 
 		if ($prop) {
