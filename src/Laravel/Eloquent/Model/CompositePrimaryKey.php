@@ -5,7 +5,7 @@ namespace App\Contracts\Eloquent;
 trait CompositePrimaryKey
 {
 
-	public function saveByPrimaryKey(array $options =[])
+	public function save(array $options =[])
 	{
 		# 单主键
 		if ( !is_array($this->primaryKey) ) {
