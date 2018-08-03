@@ -30,11 +30,21 @@ trait Property {
 	 * */
 	public static function listProperty($key)
 	{
-		$key = [
-			self::$config_file,
-			self::model_class_name(),
-			$key,
-		];
+		if (@static::$property_version==2) {
+			$key = [
+				self::$config_file,
+				static::class,
+				$key,
+			];
+		} else {
+			$key = [
+				self::$config_file,
+				self::model_class_name(),
+				$key,
+			];
+		}
+
+
 		return config(join('.', $key));
 	}
 
@@ -50,7 +60,7 @@ trait Property {
 	{
 
 		if ($key&&isset($val)) {
-			return array_search(self::listProperty($key), $val);
+			return array_search($val, self::listProperty($key));
 		}
 
 		if ($key) {
