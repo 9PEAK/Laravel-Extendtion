@@ -12,7 +12,6 @@ trait Property {
 	private static $config_file = 'model';
 
 
-
 	/**
 	 * 获取属性列表
 	 * */
