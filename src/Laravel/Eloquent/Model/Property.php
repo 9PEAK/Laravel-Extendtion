@@ -14,37 +14,15 @@ trait Property {
 
 
 	/**
-	 * 获取Model的class名称
-	 * */
-	private static function model_class_name ()
-	{
-		$arr = explode('\\', static::class);
-		return $arr[count($arr)-1];
-	}
-
-
-
-
-	/**
 	 * 获取属性列表
 	 * */
 	public static function listProperty($key)
 	{
-		if (@static::$property_version==2) {
-			$key = [
-				self::$config_file,
-				static::class,
-				$key,
-			];
-		} else {
-			$key = [
-				self::$config_file,
-				self::model_class_name(),
-				$key,
-			];
-		}
-
-
+		$key = [
+			self::$config_file,
+			static::class,
+			$key,
+		];
 		return config(join('.', $key));
 	}
 
