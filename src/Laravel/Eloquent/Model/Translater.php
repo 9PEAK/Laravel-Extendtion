@@ -33,9 +33,9 @@ trait Translater {
 
 		if ( $prop ) {
 			$prop = is_array($prop) ? $prop : explode(',', $prop);
-			$prop = array_intersect($prop, $this->${static::$model_translation});
+			$prop = array_intersect($prop, $this->{static::$model_translation});
 		} else {
-			$prop = $this->${static::$model_translation};
+			$prop = $this->{static::$model_translation};
 		}
 
 		if ($prop) {
@@ -49,8 +49,6 @@ trait Translater {
 		return true;
 
 	}
-
-
 
 
 }
