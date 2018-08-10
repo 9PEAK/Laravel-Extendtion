@@ -16,5 +16,16 @@ class Provider extends ServiceProvider
 	}
 
 
+	public function register ()
+	{
+		$this->app->bind(
+			Core::class,
+			function (){
+				return new Core();
+			}
+		);
+	}
+
+
 
 }
