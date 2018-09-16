@@ -1,23 +1,50 @@
 <?php
 
-namespace Peak\Laravel\Eloquent\Model;
+namespace Peak\Laravel\Eloquent\Model ;
 
 trait Translater {
 
-	use Property;
-
 	/**
-	 * 模型转化翻译的属性名
+	 * 模型翻译的属性名
 	 * */
-	protected static $model_translation = 'translation';
+	protected static $translation_key = 'translation';
 
 	/**
-	 * 检测model
+	 * 检测翻译属性是否已设置
 	 * */
 	private static function translation_defined():bool
 	{
-		return property_exists(__CLASS__, static::$model_translation);
+		return property_exists(__CLASS__, static::$translation_key);
 	}
+
+	/**
+	 * 获取属性列表
+	 * */
+	public static function translationList ($key)
+	{
+		if (!self::translation_defined()) return false;
+		return @static::$translation_key[$key];
+	}
+
+
+	/**
+	 * 翻译或者编码属性
+	 * */
+	public function translateProperty ($key, $val=null)
+	{
+		if (!$key) {
+			return false;
+		}
+
+		if (isset($val)) {
+			return array_search($val, self::translationList($key) ?: []);
+		}
+
+		return @self::translationList($key)[$this->$key];
+
+	}
+
+
 
 	/**
 	 * [level-3] 转化指定的Model属性
@@ -27,23 +54,19 @@ trait Translater {
 	 * @ext 转化属性名后缀，默认为''
 	 * @return 成功true；如果Model未指定translate属性名，则返回false。
 	 * */
-	public function translateProperty($prop=null, $prf='_', $ext=''):bool
+	public function translateToNewProperty($prop=null, $prf='_', $ext=''):bool
 	{
 		if ( !self::translation_defined()) return false;
 
 		if ( $prop ) {
 			$prop = is_array($prop) ? $prop : explode(',', $prop);
-			$prop = array_intersect($prop, $this->{static::$model_translation});
+			$prop = array_intersect($prop, $this->{static::$translation_key});
 		} else {
-			$prop = $this->{static::$model_translation};
+			$prop = $this->{static::$translation_key};
 		}
 
-		if ($prop) {
-			foreach ( $prop as $k ) {
-				if ( $k ) {
-					$this->{$prf.$k.$ext} = $this->getProperty($k);
-				}
-			}
+		foreach ( $prop as $k ) {
+			$this->{$prf.$k.$ext} = $this->translateProperty($k);
 		}
 
 		return true;
