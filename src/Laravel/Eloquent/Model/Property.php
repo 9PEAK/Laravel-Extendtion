@@ -87,10 +87,7 @@ trait Property {
 				}
 			}
 		}
-
 		return true;
-
 	}
-
 
 }
