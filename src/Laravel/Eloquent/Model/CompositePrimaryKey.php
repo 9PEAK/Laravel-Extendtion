@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Contracts\Eloquent;
+namespace Peak\Laravel\Eloquent\Model;
 
 trait CompositePrimaryKey
 {
