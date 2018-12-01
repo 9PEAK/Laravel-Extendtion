@@ -14,7 +14,7 @@ trait Translater {
 	 * */
 	private static function translation_defined():bool
 	{
-		return property_exists(__CLASS__, static::$translation_key);
+		return property_exists(static::class, static::$translation_key);
 	}
 
 	/**
@@ -23,7 +23,8 @@ trait Translater {
 	public static function translationList ($key)
 	{
 		if (!self::translation_defined()) return false;
-		return @static::$translation_key[$key];
+		$translation = static::$translation_key;
+		return $key ? @static::$$translation[$key] : static::$$translation;
 	}
 
 
@@ -56,13 +57,14 @@ trait Translater {
 	 * */
 	public function translateToNewProperty($prop=null, $prf='_', $ext=''):bool
 	{
+
 		if ( !self::translation_defined()) return false;
 
 		if ( $prop ) {
 			$prop = is_array($prop) ? $prop : explode(',', $prop);
-			$prop = array_intersect($prop, $this->{static::$translation_key});
+			$prop = array_intersect_assoc(array_flip($prop), static::translationList(null));
 		} else {
-			$prop = $this->{static::$translation_key};
+			$prop = array_keys(static::translationList(null));
 		}
 
 		foreach ( $prop as $k ) {
