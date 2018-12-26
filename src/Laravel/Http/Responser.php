@@ -14,22 +14,18 @@ trait Responser {
      * @param  Array $data Data to be passsed to view
      * @return HTTPResponse
      */
-	/*
+
     protected function resView($tpl, $dat)
     {
         return view($tpl)->with($dat);
-    }*/
-
-    /**
-     * Send a JSON response for API
-     * @param  Array $data Data array
-     * @return HTTPResponse
-     */
-    protected function resOutputJson($data, $code=200)
-    {
-    	return response()->json($data, $code);
-    	//return response()->json($data, $code)->header('Content-Type', 'application/javascript');
     }
+
+
+    protected function resView404 ()
+    {
+
+    }
+
 
     /**
      * Send a file download response
@@ -38,7 +34,7 @@ trait Responser {
      * @param  boolean $deleteFile    Whether the file should be deleted after download
      * @return HTTPResponse
      */
-    protected function resDownload($path, $forceDownload = true, $deleteFile = false)
+    protected function resFile($path, $forceDownload = true, $deleteFile = false)
     {
     	if ($forceDownload) {
     		return response()->download($path)->deleteFileAfterSend($deleteFile);
@@ -47,38 +43,53 @@ trait Responser {
     	return response()->file($path);
     }
 
-    /**
-     * Response with a customized status json
-     * @param  Enum $status  success or error
-     * @param  String $message Response message
-     * @param  Mixed $data    Data to be passed along
-     * @return HTTPResponse
-     */
-    protected function resOutput( $res, $msg='', $dat=null)
+
+
+
+	/**
+	 * JSON
+	 * */
+
+	protected static function res_json ($res, $msg='', $dat=null)
     {
-        return $this->resOutputJson([
-                'res' => $res,
-                'msg' => $msg,
-                'dat' => $dat
-            ]);
+	    return response()->json([
+		    'res' => $res,
+		    'msg' => $msg,
+		    'dat' => $dat
+	    ], 200);
     }
 
 
-    protected function resSuccess($msg='', $dat=null)
+    // 成功
+    protected function resJsonSuccess($msg='', $dat=null)
     {
-        return $this->resOutput(1, $msg, $dat);
+        return self::res_json(1, $msg, $dat);
     }
 
-
-	protected function resAlert($msg='', $dat=null)
+	// 失败
+	protected function resJsonFail($msg='', $dat=null)
 	{
-		return $this->resOutput(0, $msg, $dat);
+		return self::res_json(0, $msg, $dat);
 	}
 
 
-	protected function resFail($msg='', $dat=null)
+	// 未登录
+	protected function resJsonUnlogin ($msg='', $dat=null)
 	{
-		return $this->resOutput(-1, $msg, $dat);
+		return self::res_json(-1, $msg, $dat);
 	}
+
+	// 未授权
+	protected function resJsonOAuth($msg='', $dat=null)
+	{
+		return self::res_json(-1.1, $msg, $dat);
+	}
+
+	// 无权限
+	protected function resJsonNoPermission($msg='', $dat=null)
+	{
+		return self::res_json(-1.2, $msg, $dat);
+	}
+
 
 }
