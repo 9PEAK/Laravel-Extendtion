@@ -12,13 +12,38 @@ trait Translater {
 		return property_exists(static::class, 'translation');
 	}
 
+
+	private static function translation_format (&$dat)
+	{
+		if (count($dat)==count($dat, true)) {
+			foreach ($dat as $k=>&$v) {
+				$v = [
+					'key' => $k,
+					'val' => $v,
+				];
+			}
+		} else {
+			foreach ($dat as &$group) {
+				self::{__FUNCTION__}($group);
+			}
+		}
+	}
+
+
 	/**
 	 * 获取属性列表
 	 * */
-	public static function translationList ($key)
+	public static function translationList ($key, $format=false)
 	{
 		if (!self::translation_defined()) return false;
-		return $key ? @static::$translation[$key] : static::$translation;
+		$key = $key ? @static::$translation[$key] : static::$translation;
+
+		if ($format) {
+			self::translation_format($key);
+			$key = array_values($key);
+		}
+
+		return $key;
 	}
 
 
