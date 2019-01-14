@@ -25,7 +25,7 @@ trait Formater {
 	 * */
 	private static function format_as_tpl ($tpl, array $val)
 	{
-		return $tpl ? \Peak\Tool\Arr::intersectKey($tpl, $val, true) : false;
+		return $tpl ? \Peak\Plugin\Arr::intersectKey($tpl, $val, true) : false;
 	}
 
 

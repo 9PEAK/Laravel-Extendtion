@@ -1,7 +1,7 @@
 <?php
 
 namespace Peak\Laravel\Plugin;
-
+### 即将废弃
 trait Debuger {
 
 	private static $debug;
