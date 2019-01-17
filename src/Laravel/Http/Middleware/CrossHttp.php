@@ -20,7 +20,7 @@ class CrossHttp
 
 		// 获取域名配置
 		self::$domain = @self::$domain[$domain] ?: @self::$domain['*'];
-
+		$domain = '*';
 		// 设置Header
 		if (self::$domain) {
 			$res->header('Access-Control-Allow-Origin', $domain);
